@@ -22,7 +22,6 @@ function Login(props) {
         const data = new FormData(event.target);
         const email = data.get("email");
         const password = data.get("password");
-        console.log(">>> 폼에서 잘 옴?"+ email + password);
 
         //ApiService의 signin 메소드를 사용해 로그인
         signin( {email: email, password: password} );        

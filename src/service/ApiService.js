@@ -82,8 +82,8 @@ export function signup(userDTO) {
 }
 
 //회원정보수정
-export function userInfoSet(userDTO){
-    return call("/auth/userinfoset", "POST", userDTO)
+export function userEdit(userDTO){
+    return call("/auth/useredit", "POST", userDTO)
             .then( (response)=>{
                 if(response.id) {
                     window.location.href = "/";
@@ -91,8 +91,8 @@ export function userInfoSet(userDTO){
             });
 }
 //회원정보수정 페이지 길잡이
-export function userInfoSet_route(){
-    window.location.href = "/userinfoset"
+export function userEditRoute(){
+    window.location.href = "/useredit"
 }
 
 //로그아웃
