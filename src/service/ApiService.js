@@ -92,7 +92,12 @@ export function userEdit(userDTO){
 }
 //회원정보수정 페이지 길잡이
 export function userEditRoute(){
-    window.location.href = "/useredit"
+    window.location.href = "/useredit";
+}
+
+//회원탈퇴
+export function userDelete(userDTO){
+    return call("/auth/userdelete", "POST", userDTO)
 }
 
 //로그아웃

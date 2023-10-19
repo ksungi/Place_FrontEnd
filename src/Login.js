@@ -38,7 +38,7 @@ function Login(props) {
                 <FormControl fullWidth sx={{ m: 1 }} variant="filled">    
                     <TextField
                         id="email" name="email"
-                        label="Email"
+                        label="이메일"
                         multiline
                         autoFocus
                         maxRows={4}
@@ -46,7 +46,7 @@ function Login(props) {
                 </FormControl>
                 <br/>
                 <FormControl fullWidth sx={{ m: 1 }} variant="outlined">
-                    <InputLabel htmlFor="password">Password</InputLabel>
+                    <InputLabel htmlFor="password">패스워드</InputLabel>
                     <OutlinedInput
                         id="password" name="password"
                         type={showPassword ? 'text' : 'password'}
