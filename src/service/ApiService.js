@@ -49,7 +49,11 @@ export function signin(userDTO) {
         if(response.token) {
             //local스토리지에 토큰 저장
             localStorage.setItem("ACCESS_TOKEN", response.token);
-            localStorage.setItem("ACCESS_USERNAME", response.username);
+
+            if(response.companyName != null)
+                localStorage.setItem("ACCESS_USERNAME", "["+response.companyName+"]"+ " "+response.userName);
+            else
+                localStorage.setItem("ACCESS_USERNAME", response.userName);
             //token이 존재하는 경우 todo 화면으로 이동
             window.location.href = "/";
         }

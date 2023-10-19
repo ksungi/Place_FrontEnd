@@ -49,6 +49,7 @@ function App() {
       </List>
     </Paper>
   );
+  
 
   const accessUsername = localStorage.getItem("ACCESS_USERNAME");
   //navigationBar
@@ -61,7 +62,7 @@ function App() {
           </Grid>
 
           <Grid item xs={2} alignContent="center" >
-            <Typography align="right" > [ {accessUsername} ] </Typography>
+            <Typography align="right" >  {accessUsername} 님 </Typography>
           </Grid>
 
           <Grid item xs={2}>
@@ -78,8 +79,8 @@ function App() {
       <div>
         {navigationBar}
         <Container maxWidth="md">
-          <AddSpace add = {add} />
-          <div className='SpaceList'> {spaceItems} </div>
+          {/* <AddSpace add = {add} />
+          <div className='SpaceList'> {spaceItems} </div> */}
         </Container>
       </div>
     );
