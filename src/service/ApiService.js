@@ -107,3 +107,22 @@ export function signout() {
     localStorage.setItem("ACCESS_USERNAME", null);
     window.location.href = "/";
 }
+
+
+// //공간 생성 요청
+// export function addSpace(spaceDTO) {
+//     return call("/space", "POST", spaceDTO)
+//     .then( (response) => {
+//         if(response.userName)
+//             alert("등록되었습니다.");
+//         else
+//             alert("실패하였습니다.");
+//     })
+//     .catch( (error) => {
+//         console.log("Oops!"); 
+//         console.log(error.status); 
+//         console.log("Ooops!") 
+        
+//         return null;
+//     });
+// }

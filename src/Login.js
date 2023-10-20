@@ -33,7 +33,7 @@ function Login(props) {
             <Typography component="h1" variant="h5">
                 로그인
             </Typography>
-            <form noValidate onSubmit={handleSubmit} FormControlFullWidth >
+            <form noValidate onSubmit={handleSubmit} >
                 { /*submit버튼을 누르면 handleSubmit이 실행됨*/}
                 <FormControl fullWidth sx={{ m: 1 }} variant="filled">    
                     <TextField

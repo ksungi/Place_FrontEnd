@@ -4,6 +4,7 @@ import App from "./App";
 import Login from "./Login";
 import SignUp from "./SignUp"
 import UserEdit from "./UserEdit";
+import MyRoom from "./MyRoom"
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Box, Typography } from '@mui/material';
@@ -28,6 +29,7 @@ function AppRouter(props) {
                 <Route path="/signup" element={<SignUp />} />
                 <Route path="/" element={<App />} />
                 <Route path="/useredit" element={<UserEdit />} />
+                {/* <Route path="/myroom" element={<MyRoom />}/> */}
             </Routes>
             </div>
             <div>

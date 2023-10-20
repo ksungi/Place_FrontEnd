@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import Space from './Space';
+import AddSpace from './AddSpace';
 
-import { call, myroom_route, signout, userEditRoute, userInfoSet_route } from './service/ApiService';
+import { call, signout, userEditRoute } from './service/ApiService';
 //MUI
 import PropTypes from 'prop-types';
 import { CircularProgress, Paper, Box, Typography, Tab, Tabs, List, 
-        AppBar, Toolbar, Grid, Button, Container } from '@mui/material';
+        AppBar, Toolbar, Grid, Button, Container, TableCell, TableContainer, Table, TableHead, TableRow, TableBody } from '@mui/material';
 
 function TabPanel(props) {
   
@@ -41,20 +42,18 @@ function a11yProps(index) {
     'aria-controls': `vertical-tabpanel-${index}`,
   };
 }
-//
+
 function App() { 
   const [value, setValue] = React.useState(0);
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
-  //
-  const [items, setItems] = useState([]);
-  const [loading, setLoading] = useState(true);
-  
   const add = (item)=>{
-    call("/spcae", "POST", item).then( (response)=>
+    call("/space", "POST", item).then( (response)=>
       setItems(response.data)
       );
   }
@@ -82,13 +81,11 @@ function App() {
 
   //조건문 (참이라면 && 이후 실행)
   var spaceItems = items.length > 0 &&(
-    <Paper style= {{margin:16}}>
-      <List>
-      {items.map( (item, idx) => (
-            <Space item={item} key={item.id} delete={deleteitem} update={update}/> 
-      ))}
-      </List>
-    </Paper>
+      <TableBody>
+        {items.map( (item, idx) => (
+          <Space item={item} key={item.id} delete={deleteitem} update={update}/> 
+        ))}
+      </TableBody>
   );
   
 
@@ -99,7 +96,7 @@ function App() {
       <Toolbar>
         <Grid justify-content="space-between" alignItems="center" container>         
           <Grid item xs={8}>
-            <Typography variant="h6"  align="left" > 오늘의 할 일 </Typography>
+            <Typography variant="h6"  align="left"> 오늘의 공간 </Typography>
           </Grid>
 
           <Grid item xs={2} alignContent="center" >
@@ -116,87 +113,57 @@ function App() {
   );
   
     //로그인 후 나오는 Home (Loading 아닐 때)
-    var spaceListPage = (
-
-      <div>
+    var spaceListPage = (<div>
+        
+        {/* Main UI */}
         {navigationBar}
+        
         <Container maxWidth="md">
-          {/* <AddSpace add = {add} />
-          <div className='SpaceList'> {spaceItems} </div> */}
-          <br/><br/>
+          <AddSpace add = {add} />
+        </Container>    
+        
+        <br/><br/><br/>
+
+        <Container maxWidth="md">   
+          {/* 공간 보여주는 부분 */}
           <Grid item xs={12}>
               <Typography component="h1" variant="h5"> 지금 필요한 공간은 어떤 곳인가요? </Typography>
-          </Grid>
-
-          <Box sx={{ flexGrow: 1, bgcolor: 'whitesmoke',
-          // 'background.paper', 
-                display: 'flex', height: 300 }}>
-            <Tabs
-              orientation="vertical"
-              variant="scrollable"
-              value={value}
-              onChange={handleChange}
-              aria-label="Vertical tabs example"
-              sx={{ borderRight: 1 , borderColor: 'divider', bgcolor: "#CADBFF"}}
-            >
-              <Tab label="강의실" {...a11yProps(0)} />
-              <Tab label="실습실" {...a11yProps(1)} />
-              <Tab label="실험실" {...a11yProps(2)} />
-              <Tab label="강당" {...a11yProps(3)} />
-              <Tab label="세미나 룸" {...a11yProps(4)} />
-              <Tab label="회의실" {...a11yProps(5)} />
-              <Tab label="카페테리아" {...a11yProps(6)} />
-              <Tab label="체육시설" {...a11yProps(7)} />
-            </Tabs>
-
-            <TabPanel value={value} index={0}>
-              Item One
-            </TabPanel>
-            <TabPanel value={value} index={1}>
-              Item Two
-            </TabPanel>
-            <TabPanel value={value} index={2}>
-              Item Three
-            </TabPanel>
-            <TabPanel value={value} index={3}>
-              Item Four
-            </TabPanel>
-            <TabPanel value={value} index={4}>
-              Item Five
-            </TabPanel>
-            <TabPanel value={value} index={5}>
-              Item Six
-            </TabPanel>
-            <TabPanel value={value} index={6}>
-              Item Seven
-            </TabPanel>
-            <TabPanel value={value} index={7}>
-              Item Eight
-            </TabPanel>
-            <TabPanel value={value} index={8}>
-              Item Nine
-            </TabPanel>
-          </Box>
-
+          </Grid><br/>
+          <TableContainer component={Paper} 
+                          sx={{ width: '100%', overflow: 'scroll', maxHeight: 350}} >
+            <Table sx={{ minWidth: 650 }} stickyHeader aria-label="simple table">
+              <TableHead>
+                <TableRow >
+                  <TableCell align="center"> 공간이름 </TableCell>
+                  <TableCell align="center"> 평수 </TableCell>
+                  <TableCell align="center"> 인원 </TableCell>
+                  <TableCell align="center"> 구비된 시설 </TableCell>
+                  <TableCell align="center"> 가격 </TableCell>
+                  <TableCell align="center"> 예약 </TableCell>
+                </TableRow>
+              </TableHead>
+                {spaceItems}
+            </Table>
+          </TableContainer>
         </Container>
-      </div>
+      
+      </div>);
 
-    );
 
-  //loading 중일 때
+  // 로딩 확인
   var loadingPage = <CircularProgress />
   var content = loadingPage;
-  // 아닐 때
-  if(!loading) {
+  if(!loading) 
     content = spaceListPage;
-  }
+  else
+    content = loadingPage;
 
-  //생성된 컴포넌트 JPX를 리턴
   return (
     <div className="App">
       {content}  
     </div>
   );
  }
+
  export default App;
  

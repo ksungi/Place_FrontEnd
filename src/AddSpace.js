@@ -1,42 +1,99 @@
 import React, { useState } from "react";
-//import { TextField, Paper, Button, Grid, useScrollTrigger } from "@material-ui/core";
-import { Paper, Grid, Button, TextField, } from '@mui/material';
+import { Button, TextField, Container, Grid, Link, 
+        Typography, Paper,  } from "@mui/material";
 
-function AddSpace(props) { 
-    const [item, setItem] = useState( {title:""} );
+function AddSpace( {add} ) {
 
-const onInputChange = (e)=>{ 
-    const thisItem = item; 
-    thisItem.title = e.target.value; 
-    setItem(thisItem); 
-}
-const onButtonClick = ()=>{ 
-    props.add(item);
-    setItem( {title:""} ); // text 값을 추가하고 입력 필드는 초기화시킨다. 
-}
-const enterKeyEventHandler = (e)=>{ 
-    if(e.key == 'Enter') 
-        onButtonClick(); 
-} 
+    const [item, setItem] = useState( {
+        spaceName: "", limitPersonNum: "", area: "",
+        area: "", address: "", equip: "", price: "",
+        category: "",
+    } );
+
+    const onButtonClick = ()=>{
+        add(item); //텍스트 삽입
+        setItem({
+            spaceName: "", limitPersonNum: "", area: "",
+            address: "", equip: "", price: "", category: "",
+        }); //입력 필드 초기화
+    }
+
+    const onInputChange = (e)=>{
+        setItem({
+            ...item,
+            [e.target.id]: e.target.value,
+        });
+    }
 
     return (
-        <Paper style={{margine:16, padding:16}}>
-            <Grid container>
-                <Grid xs={11} md={11} item style={{paddingRight:16}}>
-                    <TextField  placeholder="Add Todo here"
-                                fullWidth
-                                onChange={onInputChange}
-                                value={item.title}
-                                onKeyDown={enterKeyEventHandler}/>
+        <Container component={Paper} maxWidth="xs" style={ {marginTop: "8%" } }>
+        {/* <form noValidate onSubmit={handleSubmit}> */}
+            <Grid container spacing={2}>
+                <Grid item xs={12}>
+                    <Typography component="h1" variant="h4" 
+                    > 공간추가하기 </Typography>
                 </Grid>
-                <Grid xs={1} md={1} item>
-                    <Button fullWidth
-                    color="secondary" variant="outlined"
-                    onClick={this.onButtonClick}
-                    > + </Button>
+
+                <Grid item xs={12}>
+                    <TextField 
+                    name="spaceName" id="spaceName" label="공간 이름"
+                    variant="outlined" onChange={onInputChange}
+                    required fullWidth value={item.spaceName}
+                    autoFocus/>
+                </Grid>
+                <Grid item xs={6}>
+                    <TextField 
+                        name="limitPersonNum" id="limitPersonNum" label="인원"
+                        variant="outlined" onChange={onInputChange}
+                        required fullWidth value={item.limitPersonNum}/>
+                </Grid>
+                <Grid item xs={6}>
+                    <TextField 
+                        name="area" id="area" label="평수"
+                        variant="outlined" onChange={onInputChange}
+                        required fullWidth value={item.area}/>
+                </Grid>
+                <Grid item xs={12}>
+                    <TextField 
+                        name="address" id="address" label="주소"
+                        variant="outlined" onChange={onInputChange}
+                        required fullWidth value={item.address}/>
+                </Grid>
+                <Grid item xs={12}>
+                    <TextField 
+                        name="equip" id="equip" label="시설"
+                        variant="outlined" onChange={onInputChange}
+                        required fullWidth value={item.equip}/>
+                </Grid>
+                <Grid item xs={6}>
+                    <TextField 
+                        name="price" id="price" label="가격"
+                        variant="outlined" onChange={onInputChange}
+                        required fullWidth value={item.price}/>
+                </Grid>
+                <Grid item xs={6}>
+                    <TextField 
+                        name="category" id="category" label="카테고리"
+                        variant="outlined" onChange={onInputChange}
+                        required fullWidth value={item.category}/>
+                </Grid>
+                <Grid item xs={12}>
+                    <Button
+                        variant="contained" fullWidth
+                        color="primary" onClick={onButtonClick}
+                        > 공간생성 </Button>
                 </Grid>
             </Grid>
-        </Paper>
-    ); 
+            <Grid container justifyContent="flex-end">
+                <Grid item >
+                    <Link href="/" variant="body2">
+                        돌아가기
+                    </Link>
+                </Grid>
+            </Grid>
+        {/* </form> */}
+        </Container>
+    );
 }
+
 export default AddSpace;
